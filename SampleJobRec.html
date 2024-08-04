@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Recruitment Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .signin, .user-type, .job-seeker, .company {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        .header {
+            background-color: #0073e6;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #0073e6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #005bb5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Welcome to Job Recruitment Website</h1>
+</div>
+
+<div class="container">
+    <!-- Sign-in Page -->
+    <div class="signin active" id="signin">
+        <h2>Sign In</h2>
+        <form>
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username"><br><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br><br>
+            <button type="button" class="btn" onclick="showUserType()">Sign In</button>
+        </form>
+    </div>
+
+    <!-- User Type Selection -->
+    <div class="user-type" id="userType">
+        <h2>Select User Type</h2>
+        <button class="btn" onclick="showJobSeeker()">Job Seeker</button>
+        <button class="btn" onclick="showCompany()">Company</button>
+    </div>
+
+    <!-- Job Seeker Page -->
+    <div class="job-seeker" id="jobSeeker">
+        <h2>Available Jobs</h2>
+        <ul id="jobList">
+            <li>Software Engineer at XYZ Company</li>
+            <li>Data Analyst at ABC Corp</li>
+            <li>Product Manager at LMN Inc.</li>
+        </ul>
+        <a href="#" class="btn" onclick="showUserType()">Back</a>
+    </div>
+
+    <!-- Company Page -->
+    <div class="company" id="company">
+        <h2>Create Job Opportunity</h2>
+        <form>
+            <label for="jobTitle">Job Title:</label><br>
+            <input type="text" id="jobTitle" name="jobTitle"><br><br>
+            <label for="jobDescription">Job Description:</label><br>
+            <textarea id="jobDescription" name="jobDescription"></textarea><br><br>
+            <label for="companyName">Company Name:</label><br>
+            <input type="text" id="companyName" name="companyName"><br><br>
+            <button type="button" class="btn" onclick="createJob()">Create Job</button>
+        </form>
+        <a href="#" class="btn" onclick="showUserType()">Back</a>
+    </div>
+</div>
+
+<script>
+    function showUserType() {
+        document.getElementById('signin').classList.remove('active');
+        document.getElementById('userType').classList.add('active');
+        document.getElementById('jobSeeker').classList.remove('active');
+        document.getElementById('company').classList.remove('active');
+    }
+
+    function showJobSeeker() {
+        document.getElementById('userType').classList.remove('active');
+        document.getElementById('jobSeeker').classList.add('active');
+    }
+
+    function showCompany() {
+        document.getElementById('userType').classList.remove('active');
+        document.getElementById('company').classList.add('active');
+    }
+
+    function createJob() {
+        const jobTitle = document.getElementById('jobTitle').value;
+        const jobDescription = document.getElementById('jobDescription').value;
+        const companyName = document.getElementById('companyName').value;
+
+        if (jobTitle && jobDescription && companyName) {
+            const jobList = document.getElementById('jobList');
+            const newJob = document.createElement('li');
+            newJob.textContent = `${jobTitle} at ${companyName}`;
+            jobList.appendChild(newJob);
+
+            // Clear the form fields
+            document.getElementById('jobTitle').value = '';
+            document.getElementById('jobDescription').value = '';
+            document.getElementById('companyName').value = '';
+
+            // Show job seeker section to see the new job listing
+            showJobSeeker();
+        } else {
+            alert('Please fill out all fields');
+        }
+    }
+</script>
+
+</body>
+</html>
